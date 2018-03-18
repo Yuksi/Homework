@@ -1,4 +1,4 @@
-package main.java;
+package day;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class DayService {
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     private static final Logger LOGGER = LoggerFactory.getLogger(DayService.class);
 
-    public boolean isNullOrEmpty(String stringDate) {
+    private boolean isNullOrEmpty(String stringDate) {
         if (stringDate == null) {
             LOGGER.error("argument is null");
             return true;
@@ -27,19 +27,12 @@ public class DayService {
         return false;
     }
 
-    public String getDayOfWeek(String stringDate) {
+    public String getDayOfWeek(String stringDate) throws ParseException, IllegalArgumentException {
         if (isNullOrEmpty(stringDate)) {
-            return null;
+            throw new IllegalArgumentException();
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-        Date date= null;
-        try {
-            date = dateFormat.parse(stringDate);
-        } catch (ParseException e) {
-            LOGGER.error("invalid argument format",e);
-            return "invalid argument format";
-        }
-
+        Date date= dateFormat.parse(stringDate);
         LOGGER.info("created date", date);
         DayInfo dayInfo = new DayInfo();
         return dayInfo.getDayOfWeek(date);
