@@ -13,14 +13,15 @@ import java.util.Locale;
 public class DayInfo {
 
     private static final String DAY_PATTERN = "EEEE";
-    private static final String LANGUAGE = "en-US";
+    private static final Locale LOCALE = Locale.ENGLISH;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DayInfo.class);
 
     public String getDayOfWeek(Date date) {
-        SimpleDateFormat dayFormat = new SimpleDateFormat(DAY_PATTERN, new Locale(LANGUAGE));
+        LOGGER.info("argument is date: " + date.toString());
+        SimpleDateFormat dayFormat = new SimpleDateFormat(DAY_PATTERN, LOCALE);
         String dayOfWeek = dayFormat.format(date);
-        LOGGER.info("got day of week: " + dayOfWeek);
+        LOGGER.info("return day of week: " + dayOfWeek);
         return dayOfWeek;
     }
 

@@ -15,7 +15,9 @@ public class DayPrinter  {
         LOGGER.info("arg string date is: " + date);
         DayService dayService = new DayService();
         try {
-            System.out.println(dayService.getDayOfWeek(date));
+            String dayOfWeek = dayService.getDayOfWeek(date);
+            LOGGER.info("day of week is: " + date);
+            System.out.println(dayOfWeek);
         } catch (ParseException e) {
             LOGGER.error("invalid argument format",e);
         } catch (IllegalArgumentException e) {
