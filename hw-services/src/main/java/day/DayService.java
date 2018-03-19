@@ -28,13 +28,12 @@ public class DayService {
     }
 
     public String getDayOfWeek(String stringDate) throws ParseException, IllegalArgumentException {
-        LOGGER.info("argument string date: ", stringDate);
+        LOGGER.info("argument string date: " + stringDate);
         if (isNullOrEmpty(stringDate)) {
             throw new IllegalArgumentException();
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
         Date date= dateFormat.parse(stringDate);
-        LOGGER.info("created date: " + date.toString());
         DayInfo dayInfo = new DayInfo();
         String dayOfWeek = dayInfo.getDayOfWeek(date);
         LOGGER.info("return day of week: " + date.toString());

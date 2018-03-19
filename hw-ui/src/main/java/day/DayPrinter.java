@@ -16,10 +16,10 @@ public class DayPrinter  {
         DayService dayService = new DayService();
         try {
             String dayOfWeek = dayService.getDayOfWeek(date);
-            LOGGER.info("day of week is: " + date);
+            LOGGER.info("day of week is: " + dayOfWeek);
             System.out.println(dayOfWeek);
         } catch (ParseException e) {
-            LOGGER.error("invalid argument format",e);
+            LOGGER.error("invalid argument format", e);
         } catch (IllegalArgumentException e) {
             LOGGER.error("string is null or empty", e);
         }
