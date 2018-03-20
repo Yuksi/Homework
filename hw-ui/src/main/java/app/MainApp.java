@@ -1,3 +1,5 @@
+package app;
+
 import day.DayPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ public class MainApp {
         if (args.length > 0) {
             dayPrinter.printToday(args[0]);
         }
-        else LOGGER.error("no args");
+        else {
+            LOGGER.error("no args");
+        }
     }
 }

@@ -14,7 +14,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
-import java.util.Date;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ DayPrinter.class })
