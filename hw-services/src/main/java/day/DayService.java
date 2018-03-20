@@ -28,7 +28,7 @@ public class DayService {
     }
 
     public String getDayOfWeek(String stringDate) throws ParseException {
-        LOGGER.info("argument string date: " + stringDate);
+        LOGGER.info("argument string date: {}", stringDate);
         if (isNullOrEmpty(stringDate)) {
             throw new IllegalArgumentException();
         }
@@ -36,7 +36,7 @@ public class DayService {
         Date date= dateFormat.parse(stringDate);
         DayInfo dayInfo = new DayInfo();
         String dayOfWeek = dayInfo.getDayOfWeek(date);
-        LOGGER.info("return day of week: " + date);
+        LOGGER.info("return day of week: {}", dayOfWeek);
         return dayOfWeek;
     }
 

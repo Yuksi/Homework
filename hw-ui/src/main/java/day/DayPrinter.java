@@ -12,11 +12,11 @@ public class DayPrinter  {
     private static final Logger LOGGER = LoggerFactory.getLogger(DayPrinter.class);
 
     public void printToday(String date) {
-        LOGGER.info("arg string date is: ", date);
+        LOGGER.info("arg string date is: {}", date);
         DayService dayService = new DayService();
         try {
             String dayOfWeek = dayService.getDayOfWeek(date);
-            LOGGER.info("day of week is: ", dayOfWeek);
+            LOGGER.info("day of week is: {}", dayOfWeek);
             System.out.println(dayOfWeek);
         } catch (ParseException e) {
             LOGGER.error("invalid argument format", e);
