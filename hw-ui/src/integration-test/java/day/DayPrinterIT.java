@@ -6,29 +6,33 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class DayPrinterIT {
 
     private DayPrinter dayPrinter;
+    PrintStream old;
     private ByteArrayOutputStream output;
-
 
     @Before
     public void setUp() {
         dayPrinter = new DayPrinter();
+        old=System.out;
         output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
     }
 
     @After
     public void tearDown() {
-        PrintStream old=System.out;
         System.setOut(old);
     }
 
     @Test
     public void printTodaySunday() {
-        dayPrinter.printToday("18/03/2018");
+        String validDate = "18/03/2018";
+        dayPrinter.printToday(validDate);
+        System.setOut(old);
+        dayPrinter.printToday(validDate);
         Assert.assertEquals("Sunday",output.toString().replaceAll(System.lineSeparator(),""));
     }
 
