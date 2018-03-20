@@ -19,6 +19,11 @@
         <jdkVersion>1.8</jdkVersion>
         <slf4jVersion>1.7.25</slf4jVersion>
         <junitVersion>4.12</junitVersion>
+        <mockitoVersion>2.0.2-beta</mockitoVersion>
+        <powerMockVersion>1.7.3</powerMockVersion>
+        <mavenCompilerPlaginVersion>3.6.1</mavenCompilerPlaginVersion>
+        <mavenSurFailPlaginVersion>2.21.0</mavenSurFailPlaginVersion>
+        <buildHelperMavenPlugin>3.0.0</buildHelperMavenPlugin>
     </properties>
 
     <profiles>
@@ -111,7 +116,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
-                <version>2.0.2-beta</version>
+                <version>${mockitoVersion}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -120,7 +125,7 @@
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-api-mockito</artifactId>
-                <version>1.7.3</version>
+                <version>${powerMockVersion}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -128,7 +133,7 @@
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-module-junit4</artifactId>
-                <version>1.7.3</version>
+                <version>${powerMockVersion}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -142,7 +147,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${buildHelperMavenPlugin}</version>
                 <executions>
                     <execution>
                         <id>add-test-source</id>
@@ -178,7 +183,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.21.0</version>
+                <version>${mavenSurFailPlaginVersion}</version>
                 <executions>
                     <execution>
                         <id>integration-tests</id>
@@ -201,7 +206,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21.0</version>
+                <version>${mavenSurFailPlaginVersion}</version>
                 <executions>
                     <execution>
                         <id>unit-tests</id>
@@ -222,7 +227,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>${mavenCompilerPlaginVersion}</version>
                 <configuration>
                     <source>${jdkVersion}</source>
                     <target>${jdkVersion}</target>
