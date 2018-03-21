@@ -24,33 +24,18 @@
         <mavenCompilerPlaginVersion>3.6.1</mavenCompilerPlaginVersion>
         <mavenSurFailPlaginVersion>2.21.0</mavenSurFailPlaginVersion>
         <buildHelperMavenPlugin>3.0.0</buildHelperMavenPlugin>
+
+        <skip.unit.tests>false</skip.unit.tests>
+        <skip.integration.tests>true</skip.integration.tests>
     </properties>
 
     <profiles>
-
-        <!-- default profile skip it compilation -->
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <build.profile.id>default</build.profile.id>
-                <skip.integration.tests>true</skip.integration.tests>
-                <skip.unit.tests>false</skip.unit.tests>
-            </properties>
-        </profile>
-
         <!-- The Configuration of the skip test compilation profile -->
         <profile>
             <id>SkipTestCompilation</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
             <properties>
                 <build.profile.id>skip-test-compilation</build.profile.id>
-                <skip.integration.tests>true</skip.integration.tests>
-                <skip.unit.tests>true</skip.unit.tests>
+                <maven.test.skip>true</maven.test.skip>
             </properties>
         </profile>
 
@@ -59,9 +44,7 @@
             <id>SkipTestExecution</id>
             <properties>
                 <build.profile.id>skip-test-execution</build.profile.id>
-                <skip.integration.tests>true</skip.integration.tests>
-                <skip.unit.tests>false</skip.unit.tests>
-                <skip.unit.tests.exec>true</skip.unit.tests.exec>
+                <skip.unit.tests>true</skip.unit.tests>
             </properties>
         </profile>
 
@@ -79,7 +62,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <!-- modules dependencies -->
             <dependency>
                 <groupId>com.yuksi</groupId>
@@ -120,7 +102,6 @@
                 <scope>test</scope>
             </dependency>
 
-
             <!-- https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito -->
             <dependency>
                 <groupId>org.powermock</groupId>
@@ -142,7 +123,6 @@
 
     <build>
         <plugins>
-
             <!-- Adds source and resource directories to our build -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -192,14 +172,14 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
-                        <configuration>
-                            <skipTests>${skip.integration.tests}</skipTests>
-                            <includes>
-                                <include>**/*IT.java</include>
-                            </includes>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <skipITs>${skip.integration.tests}</skipITs>
+                    <includes>
+                        <include>**/*IT.java</include>
+                    </includes>
+                </configuration>
             </plugin>
 
             <!-- Runs unit tests -->
@@ -214,14 +194,14 @@
                         <goals>
                             <goal>test</goal>
                         </goals>
-                        <configuration>
-                            <skipTests>${skip.unit.tests}</skipTests>
-                            <excludes>
-                                <exclude>**/*IT.java</exclude>
-                            </excludes>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <skipTests>${skip.unit.tests}</skipTests>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>
