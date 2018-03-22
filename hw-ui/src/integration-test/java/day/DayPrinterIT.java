@@ -1,22 +1,22 @@
 package day;
 
+import day.impl.DayPrinterImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class DayPrinterIT {
 
-    private DayPrinter dayPrinter;
-    PrintStream old;
+    private DayPrinterImpl dayPrinter;
+    private PrintStream old;
     private ByteArrayOutputStream output;
 
     @Before
     public void setUp() {
-        dayPrinter = new DayPrinter();
+        dayPrinter = new DayPrinterImpl();
         old=System.out;
         output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));

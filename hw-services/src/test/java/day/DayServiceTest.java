@@ -1,93 +1,69 @@
 package day;
 
+import day.impl.DayServiceImpl;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ DayService.class })
+@RunWith(MockitoJUnitRunner.class)
 public class DayServiceTest {
 
     @Mock
-    private DayInfo mockDayInfo;
+    private DayInfoI mockDayInfo;
 
-    private DayService dayService;
+    @InjectMocks
+    private DayServiceI dayService = new DayServiceImpl();
 
     @Before
     public void setUp() {
-        dayService = new DayService();
+        dayService = new DayServiceImpl();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
     public void getDayOfWeekStringIsNull() throws ParseException {
+        thrown.expect(IllegalArgumentException.class);
         dayService.getDayOfWeek(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void getDayOfWeekStringIsEmpty() throws ParseException {
+        thrown.expect(IllegalArgumentException.class);
         dayService.getDayOfWeek("");
     }
 
-    @Test(expected = ParseException.class)
+    @Test
     public void getDayOfWeekStringNotDate() throws ParseException {
+        thrown.expect(ParseException.class);
         dayService.getDayOfWeek("something");
     }
 
     @Test
-    public void getDayOfWeekNotCallsMockObjectMethodStringEmpty() throws Exception {
-        Date someDate = new GregorianCalendar(2018, 02, 18).getTime();
-        PowerMockito.whenNew(DayInfo.class).withNoArguments().thenReturn(this.mockDayInfo);
-        try {
-            dayService.getDayOfWeek("");
-        } catch (IllegalArgumentException e) {}
-        Mockito.verify(this.mockDayInfo, Mockito.never()).getDayOfWeek(someDate);
+    public void getDayOfWeekInvalidStringFormat() throws ParseException {
+        thrown.expect(ParseException.class);
+        dayService.getDayOfWeek("18-03-2018");
     }
 
     @Test
     public void getDayOfWeekNotCallsMockObjectMethodStringNull() throws Exception {
-        Date someDate = new GregorianCalendar(2018, 02, 18).getTime();
-        PowerMockito.whenNew(DayInfo.class).withNoArguments().thenReturn(this.mockDayInfo);
         try {
             dayService.getDayOfWeek(null);
         } catch (IllegalArgumentException e) {}
-        Mockito.verify(this.mockDayInfo, Mockito.never()).getDayOfWeek(someDate);
-    }
-
-    @Test
-    public void getDayOfWeekNotCallsMockObjectMethodStringInvalidFormat() throws Exception {
-        Date someDate = new GregorianCalendar(2018, 02, 18).getTime();
-        PowerMockito.whenNew(DayInfo.class).withNoArguments().thenReturn(this.mockDayInfo);
-        try {
-            dayService.getDayOfWeek("something");
-        } catch (ParseException e) {}
-        Mockito.verify(this.mockDayInfo, Mockito.never()).getDayOfWeek(someDate);
-    }
-
-    @Test
-    public void getDayOfWeekCallsMockObjectMethod() throws Exception {
-        Date someDate = new GregorianCalendar(2018, 02, 18).getTime();
-        PowerMockito.whenNew(DayInfo.class).withNoArguments().thenReturn(this.mockDayInfo);
-        Mockito.when(mockDayInfo.getDayOfWeek(someDate)).thenReturn("Sunday");
-        dayService.getDayOfWeek("18/03/2018");
-        Mockito.verify(this.mockDayInfo, Mockito.times(1)).getDayOfWeek(someDate);
+        Mockito.verify(this.mockDayInfo, Mockito.never()).getDayOfWeek(null);
     }
 
     @Test
     public void getDayOfWeekReturnSunday() throws ParseException {
         Mockito.when(mockDayInfo.getDayOfWeek(new Date())).thenReturn("Sunday");
         Assert.assertEquals("Sunday", dayService.getDayOfWeek("18/03/2018"));
-    }
-
-    @Test (expected = ParseException.class)
-    public void getDayOfWeekInvalidStringFormat() throws ParseException {
-        Assert.assertEquals("Sunday", dayService.getDayOfWeek("18-03-2018"));
     }
 }

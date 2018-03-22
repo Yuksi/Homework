@@ -1,5 +1,7 @@
-package day;
+package day.impl;
 
+import day.DayPrinterI;
+import day.DayServiceI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.text.ParseException;
@@ -7,13 +9,19 @@ import java.text.ParseException;
 /**
  * Created by Yuksi on 15.03.2018.
  */
-public class DayPrinter  {
+public class DayPrinterImpl implements DayPrinterI {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DayPrinter.class);
+    private DayServiceI dayService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DayPrinterImpl.class);
+
+    public DayPrinterImpl() {
+        dayService = new DayServiceImpl();
+    }
+
+    @Override
     public void printToday(String date) {
         LOGGER.info("arg string date is: {}", date);
-        DayService dayService = new DayService();
         try {
             String dayOfWeek = dayService.getDayOfWeek(date);
             LOGGER.info("day of week is: {}", dayOfWeek);
